@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estructura Cúbica Centrada en el Cuerpo (BCC) - Hierro (Fe)</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #151d30;
+      --card-border: #1e293b;
+      --card-hover: #243049;
+      --primary: #f59e0b; /* Tono ámbar/dorado metálico para Hierro / BCC */
+      --accent: #ef4444;  /* Rojo de acento */
+      --text: #f8fafc;
+      --subtext: #94a3b8;
+      --highlight: #34d399;
+      --badge-bg: rgba(245, 158, 11, 0.1);
+      --badge-border: rgba(245, 158, 11, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 20px 15px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 520px;
+      width: 100%;
+    }
+
+    .header {
+      text-align: center;
+      padding: 25px 15px 20px 15px;
+      border-bottom: 2px solid var(--card-border);
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.05) 0%, rgba(11, 15, 25, 0) 100%);
+      border-radius: 16px 16px 0 0;
+    }
+
+    .element-badge {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 90px;
+      height: 90px;
+      border: 2px solid var(--primary);
+      border-radius: 16px;
+      background: var(--badge-bg);
+      margin-bottom: 12px;
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .element-badge:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(245, 158, 11, 0.4);
+    }
+
+    .symbol {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+      margin: 0;
+    }
+
+    .atomic-num {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--subtext);
+      margin-top: 2px;
+    }
+
+    h1 {
+      margin: 8px 0 4px 0;
+      font-size: 1.75rem;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      color: var(--highlight);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .header-image {
+      max-width: 100%;
+      height: auto;
+      margin-top: 20px;
+      border-radius: 12px;
+      border: 2px solid var(--card-border);
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.2);
+    }
+
+    .section-title {
+      color: var(--primary);
+      font-size: 0.95rem;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--card-border);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      background-color: var(--card-hover);
+      border-color: rgba(245, 158, 11, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .card-label {
+      font-size: 0.78rem;
+      color: var(--subtext);
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .card-value {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 5px;
+    }
+
+    .full-width {
+      grid-column: span 2;
+    }
+
+    .desc-box {
+      background: #0f172a;
+      border-left: 4px solid var(--primary);
+      padding: 12px 14px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: #cbd5e1;
+      border-radius: 0 8px 8px 0;
+      margin-top: 10px;
+    }
+
+    .author-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 14px;
+      padding: 20px;
+      margin-top: 30px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .author-badge-title {
+      font-size: 0.75rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .author-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0 0 4px 0;
+    }
+
+    .author-degree {
+      color: var(--highlight);
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin: 0 0 12px 0;
+    }
+
+    .author-meta {
+      font-size: 0.82rem;
+      color: var(--subtext);
+      border-top: 1px solid var(--card-border);
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      padding-bottom: 20px;
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <div class="element-badge">
+        <p class="symbol">Fe</p>
+        <p class="atomic-num">Z = 26</p>
+      </div>
+      <h1>Hierro Alfa (&alpha;-Fe)</h1>
+      <p class="subtitle">Estructura Cúbica Centrada en el Cuerpo (BCC)</p>
+      
+      <!-- Imagen de la celda BCC -->
+      <img src="image_5.png" alt="Estructura Cúbica Centrada en el Cuerpo (BCC)" class="header-image">
+    </div>
+
+    <div class="section-title">Red de Bravais y Geometría</div>
+    <div class="grid">
+      <div class="card full-width">
+        <span class="card-label">Red de Bravais Base</span>
+        <div class="card-value" style="color: var(--highlight);">Cúbica Centrada en el Cuerpo (BCC)</div>
+      </div>
+
+      <div class="card full-width">
+        <span class="card-label">Distribución Atómica</span>
+        <div class="card-value">1 Átomo central + 8 en los vértices</div>
+        <div class="desc-box">
+          Los átomos en las esquinas se tocan mutuamente a lo largo de la <strong>diagonal principal del cubo</strong> $[111]$ a través del átomo alojado en el centro geométrico.
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Constante de Red (a)</span>
+        <div class="card-value">2.866 Å (0.2866 nm)</div>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Átomos por Celda</span>
+        <div class="card-value">2 Átomos de Fe</div>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Número de Coordinación</span>
+        <div class="card-value">8 (Octaédrico)</div>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Radio Atómico (r)</span>
+        <div class="card-value">1.24 Å &bull; r = (&radic;3/4)a</div>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Factor de Empaquetamiento</span>
+        <div class="card-value">68% (0.68)</div>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Dirección de Máxima Densidad</span>
+        <div class="card-value">Familia &lang;1 1 1&rang;</div>
+      </div>
+    </div>
+
+    <div class="section-title">Propiedades Cristalográficas y Planos</div>
+    <div class="grid">
+      <div class="card">
+        <span class="card-label">Plano de Deslizamiento</span>
+        <div class="card-value">Familia {1 1 0}</div>
+      </div>
+      <div class="card">
+        <span class="card-label">Sistemas de Deslizamiento</span>
+        <div class="card-value">12 Sistemas principales</div>
+      </div>
+      <div class="card full-width">
+        <span class="card-label">Elementos Representativos con BCC</span>
+        <div class="card-value">Hierro (&alpha;-Fe), Cromo (Cr), Tungsteno (W), Molibdeno (Mo), Vanadio (V)</div>
+      </div>
+    </div>
+
+    <div class="author-card">
+      <div class="author-badge-title">Proyecto para Laboratorio de Semiconductores</div>
+      <h2 class="author-name">Maximiliano Erma Sánchez</h2>
+      <p class="author-degree">Ingeniería en Semiconductores</p>
+      <div class="author-meta">
+        Física del Estado Sólido &bull; Redes de Bravais (BCC) &bull; Maqueta NFC
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Laboratorio de Semiconductores</p>
+      <p>Física del Estado Sólido &bull; Maqueta NFC</p>
+    </div>
+  </div>
+
+</body>
+</html>
